@@ -13,6 +13,11 @@
         android:theme="@style/Theme.FabricaSapatos"
         tools:targetApi="31">
         <activity
+            android:name=".Produto.TelaInsereProdutos"
+            android:exported="false"
+            android:label="@string/title_activity_tela_insere_produtos"
+            android:theme="@style/Theme.FabricaSapatos" />
+        <activity
             android:name=".Produto.TelaPedidos"
             android:exported="false"
             android:label="@string/title_activity_tela_pedidos"

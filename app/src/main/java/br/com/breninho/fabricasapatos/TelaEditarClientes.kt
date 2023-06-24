@@ -2,6 +2,7 @@ package br.com.breninho.fabricasapatos
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
@@ -64,15 +65,8 @@ fun EditaClientes(cliente: Cliente) {
             modifier = Modifier.padding(16.dp)
         )
 
-        TextField(
-            value = cpf,
-            onValueChange = { newValue ->
-                val maskedValue = maskCpf(newValue)
-                cpf = maskedValue
-            },
-            label = { Text("CPF") },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            textStyle = TextStyle.Default.copy(fontFeatureSettings = "'tnum'"),
+        Text(
+            text = cpf,
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
         )
 
@@ -111,10 +105,12 @@ fun EditaClientes(cliente: Cliente) {
                 val cpfClean = cpf.replace(".", "").replace("-", "")
                 clientesRef.child(cpfClean).setValue(clienteAtualizado)
                 // Voltar para a tela de clientes
+                Toast.makeText(contexto,"Cliente editado com sucesso!", Toast.LENGTH_LONG).show()
                 contexto.startActivity(Intent(contexto, TelaClientes::class.java))
             },
             enabled = cpf.isNotEmpty() && nome.isNotEmpty() && telefone.isNotEmpty() && endereco.isNotEmpty() && instagram.isNotEmpty(),
             modifier = Modifier.padding(16.dp)
+
         ) {
             Text(text = "Salvar")
         }

@@ -57,22 +57,6 @@ fun Clientes() {
             Text(text = "Mostrar")
         }
         Button(
-            onClick = {
-                contexto.startActivity(Intent(contexto, TelaClientes::class.java))
-            },
-            modifier = Modifier.width(300.dp),
-        ) {
-            Text(text = "Alterar")
-        }
-        Button(
-            onClick = {
-                contexto.startActivity(Intent(contexto, TelaClientes::class.java))
-            },
-            modifier = Modifier.width(300.dp),
-        ) {
-            Text(text = "Deletar")
-        }
-        Button(
             onClick = {contexto.startActivity(Intent(contexto, MainActivity::class.java))},//onVoltarClick()
             modifier = Modifier.padding(16.dp)
         ) {

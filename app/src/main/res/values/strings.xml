@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">FabricaSapatos</string>
     <string name="title_activity_tela_pedidos">TelaPedidos</string>
+    <string name="title_activity_tela_insere_produtos">TelaInsereProdutos</string>
 </resources>

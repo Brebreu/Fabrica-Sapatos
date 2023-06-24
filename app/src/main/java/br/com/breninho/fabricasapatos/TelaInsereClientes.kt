@@ -19,6 +19,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.text.KeyboardOptions
@@ -124,6 +125,7 @@ fun InsereClientes() {
                 telefone = ""
                 endereco = ""
                 instagram = ""
+                Toast.makeText(contexto,"Cliente inserido com sucesso!", Toast.LENGTH_LONG).show()
             },
             enabled = cpf.isNotEmpty() && nome.isNotEmpty() && telefone.isNotEmpty() && endereco.isNotEmpty() && instagram.isNotEmpty(),
             modifier = Modifier.padding(16.dp)
