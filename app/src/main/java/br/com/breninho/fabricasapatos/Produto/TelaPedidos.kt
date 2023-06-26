@@ -55,7 +55,7 @@ fun Pedidos() {
         }
         Button(
             onClick = {
-                contexto.startActivity(Intent(contexto, TelaMostrarClientes::class.java))
+                contexto.startActivity(Intent(contexto, TelaMostrarProdutos::class.java))
             },
             modifier = Modifier.width(300.dp),
         ) {

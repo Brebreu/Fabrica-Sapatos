@@ -2,4 +2,6 @@
     <string name="app_name">FabricaSapatos</string>
     <string name="title_activity_tela_pedidos">TelaPedidos</string>
     <string name="title_activity_tela_insere_produtos">TelaInsereProdutos</string>
+    <string name="title_activity_tela_mostrar_produtos">TelaMostrarProdutos</string>
+    <string name="title_activity_tela_editar_produtos">TelaEditarProdutos</string>
 </resources>

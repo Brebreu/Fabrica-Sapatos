@@ -13,6 +13,16 @@
         android:theme="@style/Theme.FabricaSapatos"
         tools:targetApi="31">
         <activity
+            android:name=".Produto.TelaEditarProdutos"
+            android:exported="false"
+            android:label="@string/title_activity_tela_editar_produtos"
+            android:theme="@style/Theme.FabricaSapatos" />
+        <activity
+            android:name=".Produto.TelaMostrarProdutos"
+            android:exported="false"
+            android:label="@string/title_activity_tela_mostrar_produtos"
+            android:theme="@style/Theme.FabricaSapatos" />
+        <activity
             android:name=".Produto.TelaInsereProdutos"
             android:exported="false"
             android:label="@string/title_activity_tela_insere_produtos"
