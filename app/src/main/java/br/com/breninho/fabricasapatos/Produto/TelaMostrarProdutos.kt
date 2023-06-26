@@ -9,7 +9,6 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -26,8 +25,6 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -40,13 +37,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import br.com.breninho.fabricasapatos.Produto.ui.theme.FabricaSapatosTheme
-import br.com.breninho.fabricasapatos.TelaEditarClientes
-import br.com.breninho.fabricasapatos.model.Cliente
 import br.com.breninho.fabricasapatos.model.Produto
-import com.bumptech.glide.Glide
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -85,6 +77,8 @@ fun mostrarProdutos() {
                     val valor = produtoSnapshot.child("valor").value.toString().toFloat()
                     val foto = produtoSnapshot.child("foto").value.toString()
 
+
+
                     val produto = Produto(id_Produto, descricao, valor, foto)
                     produtos.add(produto)
                 }
@@ -98,7 +92,7 @@ fun mostrarProdutos() {
         })
     }
 
-    // Carregar os clientes ao entrar na tela
+    // Carregar os produto ao entrar na tela
     LaunchedEffect(Unit) {
         carregarProdutos()
     }
@@ -137,7 +131,7 @@ fun mostrarProdutos() {
 fun MenuTresPontosOpcoes(produto: Produto) {
     val contexto: Context = LocalContext.current
     val database = FirebaseDatabase.getInstance()
-    val clientesRef = database.getReference("produtos")
+    val produtosRef = database.getReference("produtos")
     var isOpened: Boolean by remember { mutableStateOf(false) }
     val showDialog = remember{ mutableStateOf(false) }
     Box(
@@ -153,51 +147,51 @@ fun MenuTresPontosOpcoes(produto: Produto) {
         }
         DropdownMenu(expanded = isOpened, onDismissRequest = { isOpened = false }) {
             DropdownMenuItem(text = { Text(text = "Editar") }, onClick = {
-                val intent = Intent(contexto, TelaEditarClientes::class.java)
-                //intent.putExtra("produto", produto)  descomentar quando for fazer o editar
+                val intent = Intent(contexto, TelaEditarProdutos::class.java)
+                intent.putExtra("produto", produto)
                 contexto.startActivity(intent)
                 isOpened = !isOpened
             })
             DropdownMenuItem(text = { Text(text = "Excluir") }, onClick = {
-                //ExibirDialogExclusaoCliente(contexto, cliente, clientesRef)
+                //ExibirDialogExclusaoProduto(contexto, produto, produtosRef)
                 showDialog.value = true
                 isOpened = !isOpened
             })
         }
     }
     if(showDialog.value){
-        //br.com.breninho.fabricasapatos.ExibirDialogExclusaoCliente(contexto, cliente, clientesRef) descomentar quando for fazer o excluir
+        br.com.breninho.fabricasapatos.Produto.ExibirDialogExclusaoProduto(contexto, produto, produtosRef)
     }
 }
 
 
 @Composable
-fun ExibirDialogExclusaoCliente(contexto: Context, cliente: Cliente, clientesRef: DatabaseReference) {
+fun ExibirDialogExclusaoProduto(contexto: Context, produto: Produto, produtosRef: DatabaseReference) {
     var showDialog by remember { mutableStateOf(true) }
 
     if (showDialog) {
         androidx.compose.material3.AlertDialog(
             onDismissRequest = { showDialog = false },
-            title = { Text("Excluir cliente") },
-            text = { Text("Tem certeza de que deseja excluir este cliente?") },
+            title = { Text("Excluir produto") },
+            text = { Text("Tem certeza de que deseja excluir este produto?") },
             confirmButton = {
                 androidx.compose.material3.Button(
                     onClick = {
-                        val cpfClean = cliente.cpf.replace(".", "").replace("-", "")
-                        clientesRef.child(cpfClean).addListenerForSingleValueEvent(object :
+                        val id_Produto = produto.id_Produto.toString()
+                        produtosRef.child(id_Produto).addListenerForSingleValueEvent(object :
                             ValueEventListener {
                             override fun onDataChange(snapshot: DataSnapshot) {
                                 if (snapshot.exists()) {
                                     snapshot.ref.removeValue()
                                     Toast.makeText(
                                         contexto,
-                                        "Cliente excluído com sucesso!",
+                                        "Produto excluído com sucesso!",
                                         Toast.LENGTH_SHORT
                                     ).show()
                                 } else {
                                     Toast.makeText(
                                         contexto,
-                                        "Cliente não encontrado.",
+                                        "Produto não encontrado.",
                                         Toast.LENGTH_SHORT
                                     ).show()
                                 }
@@ -206,7 +200,7 @@ fun ExibirDialogExclusaoCliente(contexto: Context, cliente: Cliente, clientesRef
                             override fun onCancelled(error: DatabaseError) {
                                 Toast.makeText(
                                     contexto,
-                                    "Erro ao excluir o cliente.",
+                                    "Erro ao excluir o produto.",
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }
