@@ -5,9 +5,12 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
@@ -25,7 +28,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import br.com.breninho.fabricasapatos.Pedido.TelaPedidos
 import br.com.breninho.fabricasapatos.model.Produto
+import coil.compose.rememberImagePainter
 import com.google.firebase.database.FirebaseDatabase
 
 
@@ -84,13 +89,22 @@ fun EditaProdutos(produto: Produto) {
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
         )
-
-        TextField(
-            value = foto,
-            onValueChange = { foto = it },
-            label = { Text("Foto") },
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
-        )
+        if (produto.foto.isNotEmpty()) {
+            Image(
+                painter = rememberImagePainter(produto.foto),
+                contentDescription = "Foto do Produto",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(200.dp)
+            )
+        }
+//        TextField(
+//            value = foto,
+//            onValueChange = { foto = it },
+//            label = { Text("Foto") },
+//            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+//
+//        )
 
 
         Button(
@@ -111,7 +125,7 @@ fun EditaProdutos(produto: Produto) {
         Button(
             onClick = {
                 // Voltar para a tela de produtos sem fazer alterações
-                contexto.startActivity(Intent(contexto, TelaPedidos::class.java))
+                contexto.startActivity(Intent(contexto, TelaProdutos::class.java))
             },
             modifier = Modifier.padding(16.dp)
         ) {

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -39,6 +40,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import br.com.breninho.fabricasapatos.model.Produto
+import coil.compose.rememberImagePainter
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -77,8 +79,6 @@ fun mostrarProdutos() {
                     val valor = produtoSnapshot.child("valor").value.toString().toFloat()
                     val foto = produtoSnapshot.child("foto").value.toString()
 
-
-
                     val produto = Produto(id_Produto, descricao, valor, foto)
                     produtos.add(produto)
                 }
@@ -91,6 +91,7 @@ fun mostrarProdutos() {
             }
         })
     }
+
 
     // Carregar os produto ao entrar na tela
     LaunchedEffect(Unit) {
@@ -116,7 +117,15 @@ fun mostrarProdutos() {
                         Text(text = "ID: ${produto.id_Produto}")
                         Text(text = "Descricao: ${produto.descricao}")
                         Text(text = "Valor: ${produto.valor}")
-                        Text(text = "Foto: ${produto.foto}")
+                        if (produto.foto.isNotEmpty()) {
+                            Image(
+                                painter = rememberImagePainter(produto.foto),
+                                contentDescription = "Foto do Produto",
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(200.dp)
+                            )
+                        }
 
                         MenuTresPontosOpcoes(produto)
                     }
@@ -163,7 +172,6 @@ fun MenuTresPontosOpcoes(produto: Produto) {
         br.com.breninho.fabricasapatos.Produto.ExibirDialogExclusaoProduto(contexto, produto, produtosRef)
     }
 }
-
 
 @Composable
 fun ExibirDialogExclusaoProduto(contexto: Context, produto: Produto, produtosRef: DatabaseReference) {

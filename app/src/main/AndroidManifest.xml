@@ -13,6 +13,21 @@
         android:theme="@style/Theme.FabricaSapatos"
         tools:targetApi="31">
         <activity
+            android:name=".Pedido.TelaEscolherProduto"
+            android:exported="false"
+            android:label="@string/title_activity_tela_escolher_produto"
+            android:theme="@style/Theme.FabricaSapatos" />
+        <activity
+            android:name=".Pedido.TelaInserePedidos"
+            android:exported="false"
+            android:label="@string/title_activity_tela_insere_pedidos"
+            android:theme="@style/Theme.FabricaSapatos" />
+        <activity
+            android:name=".Pedido.TelaPedidos"
+            android:exported="false"
+            android:label="@string/title_activity_tela_pedidos"
+            android:theme="@style/Theme.FabricaSapatos" />
+        <activity
             android:name=".Produto.TelaEditarProdutos"
             android:exported="false"
             android:label="@string/title_activity_tela_editar_produtos"
@@ -28,7 +43,7 @@
             android:label="@string/title_activity_tela_insere_produtos"
             android:theme="@style/Theme.FabricaSapatos" />
         <activity
-            android:name=".Produto.TelaPedidos"
+            android:name=".Produto.TelaProdutos"
             android:exported="false"
             android:label="@string/title_activity_tela_pedidos"
             android:theme="@style/Theme.FabricaSapatos" />

@@ -157,7 +157,7 @@ fun InsereProdutos() {
         }
 
         Button(
-            onClick = { contexto.startActivity(Intent(contexto, TelaPedidos::class.java)) },
+            onClick = { contexto.startActivity(Intent(contexto, TelaProdutos::class.java)) },
             modifier = Modifier.padding(16.dp)
         ) {
             Text(text = "Voltar")

@@ -20,14 +20,23 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -39,21 +48,62 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import br.com.breninho.fabricasapatos.Produto.TelaPedidos
-
+import br.com.breninho.fabricasapatos.Pedido.TelaPedidos
+import br.com.breninho.fabricasapatos.Produto.TelaProdutos
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            TelaInicial();
-            MenuTresPontos()
-            BoasVindas()
+            TelaInicial()
         }
     }
 }
+
+//@OptIn(ExperimentalMaterial3Api::class)
+//@Composable
+//fun FabricaSapatosApp() {
+//    val contexto: Context = LocalContext.current
+//    Scaffold(
+//        topBar = {
+//            TopAppBar(
+//                title = { Text(text = "Sapatos Milzuno") },
+//                actions = { MenuTresPontos() }
+//            )
+//        },
+//        bottomBar = {
+//            NavigationBar() {
+//                NavigationBarItem(
+//                    selected = true,
+//                    icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
+//                    label = { Text(text = "Home") },
+//                    onClick = { /* Navegar para a tela principal */ }
+//                )
+//                NavigationBarItem(
+//                    selected = false,
+//                    icon = { Icon(Icons.Default.Person, contentDescription = "Clientes") },
+//                    label = { Text(text = "Clientes") },
+//                    onClick = { contexto.startActivity(Intent(contexto, TelaClientes::class.java)) }
+//                )
+//                NavigationBarItem(
+//                    selected = false,
+//                    icon = { Icon(Icons.Default.ShoppingCart, contentDescription = "Pedidos") },
+//                    label = { Text(text = "Pedidos") },
+//                    onClick = { contexto.startActivity(Intent(contexto, TelaPedidos::class.java)) }
+//                )
+//                NavigationBarItem(
+//                    selected = false,
+//                    icon = { Icon(Icons.Default.Favorite, contentDescription = "Produtos") },
+//                    label = { Text(text = "Produtos") },
+//                    onClick = { contexto.startActivity(Intent(contexto, TelaProdutos::class.java)) }
+//                )
+//            }
+//        }
+//    ){}
+//}
+
 @Composable
 fun TelaInicial() {
-    val contexto : Context = LocalContext.current
+    val contexto: Context = LocalContext.current
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -69,7 +119,7 @@ fun TelaInicial() {
         }
         Button(
             onClick = {
-                contexto.startActivity(Intent(contexto, TelaPedidos::class.java))
+                contexto.startActivity(Intent(contexto, TelaProdutos::class.java))
             },
             modifier = Modifier.width(300.dp),
         ) {
@@ -77,7 +127,7 @@ fun TelaInicial() {
         }
         Button(
             onClick = {
-                contexto.startActivity(Intent(contexto, TelaClientes::class.java))
+                contexto.startActivity(Intent(contexto, TelaPedidos::class.java))
             },
             modifier = Modifier.width(300.dp),
         ) {
@@ -87,53 +137,27 @@ fun TelaInicial() {
 }
 
 @Composable
-fun BoasVindas() {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.Start
-    ) {
-        Text(
-            text = "Bem-vindo(a) vendedor(a)",
-            style = MaterialTheme.typography.titleMedium,
-            modifier = Modifier.padding(16.dp)
-        )
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentSize(Alignment.Center)
-        ) {
-            Image(
-                painter = painterResource(R.drawable.logo_fabrica),
-                contentDescription = "Imagem",
-                modifier = Modifier
-                    .size(160.dp)
-                    .aspectRatio(1f)
-                    .clip(CircleShape)
-            )
-        }
-        Spacer(modifier = Modifier.weight(1f))
-    }
-}
-
-@Composable
-fun MenuTresPontos(){
-    val contexto : Context = LocalContext.current
-    var isOpened : Boolean by remember { mutableStateOf(false) }
+fun MenuTresPontos() {
+    val contexto: Context = LocalContext.current
+    var isOpened: Boolean by remember { mutableStateOf(false) }
 
     Box(modifier = Modifier
-        .fillMaxWidth()
-        .wrapContentSize(Alignment.TopEnd)){
-        IconButton(onClick = {isOpened = !isOpened}) {
+        .wrapContentSize(Alignment.TopEnd)
+        .padding(end = 16.dp)
+    ) {
+        IconButton(onClick = { isOpened = !isOpened }) {
             Icon(
                 imageVector = Icons.Default.MoreVert,
                 contentDescription = "More vert"
             )
         }
-        DropdownMenu(expanded = isOpened, onDismissRequest = {isOpened = false}) {
-           DropdownMenuItem(text = { Text(text = "Créditos")}, onClick = {Toast.makeText(contexto,"Folhas Secas", Toast.LENGTH_LONG).show()
+        DropdownMenu(expanded = isOpened, onDismissRequest = { isOpened = false }) {
+            DropdownMenuItem(text = { Text(text = "Créditos") }, onClick = {
+                Toast.makeText(contexto, "Folhas Secas", Toast.LENGTH_LONG).show()
                 isOpened = !isOpened
-           })
-            DropdownMenuItem(text = { Text(text = "Avaliar App")}, onClick = {Toast.makeText(contexto,"Em breve.....", Toast.LENGTH_LONG).show()
+            })
+            DropdownMenuItem(text = { Text(text = "Avaliar App") }, onClick = {
+                Toast.makeText(contexto, "Em breve.....", Toast.LENGTH_LONG).show()
                 isOpened = !isOpened
             })
         }

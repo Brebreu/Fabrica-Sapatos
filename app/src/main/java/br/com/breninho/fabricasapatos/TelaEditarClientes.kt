@@ -50,7 +50,7 @@ fun EditaClientes(cliente: Cliente) {
     var cpf by remember { mutableStateOf(cliente.cpf) }
     var nome by remember { mutableStateOf(cliente.nome) }
     var telefone by remember { mutableStateOf(cliente.telefone) }
-    var endereco by remember { mutableStateOf(cliente.Endereco) }
+    var endereco by remember { mutableStateOf(cliente.endereco) }
     var instagram by remember { mutableStateOf(cliente.insta) }
 
 

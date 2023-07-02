@@ -119,7 +119,7 @@ fun mostrarClientes() {
                         Text(text = "CPF: ${cliente.cpf}")
                         Text(text = "Nome: ${cliente.nome}")
                         Text(text = "Telefone: ${cliente.telefone}")
-                        Text(text = "Endereço: ${cliente.Endereco}")
+                        Text(text = "Endereço: ${cliente.endereco}")
                         Text(text = "Instagram: ${cliente.insta}")
 
                         MenuTresPontosOpcoes(cliente)
