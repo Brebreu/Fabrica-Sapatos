@@ -6,4 +6,6 @@
     <string name="title_activity_tela_editar_produtos">TelaEditarProdutos</string>
     <string name="title_activity_tela_insere_pedidos">TelaInserePedidos</string>
     <string name="title_activity_tela_escolher_produto">TelaEscolherProduto</string>
+    <string name="title_activity_tela_mostar_pedido">TelaMostarPedido</string>
+    <string name="title_activity_tela_mostrar_pedidos">TelaMostrarPedidos</string>
 </resources>

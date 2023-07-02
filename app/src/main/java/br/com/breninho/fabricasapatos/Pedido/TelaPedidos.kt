@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import br.com.breninho.fabricasapatos.MainActivity
 import br.com.breninho.fabricasapatos.Pedido.ui.theme.FabricaSapatosTheme
 import br.com.breninho.fabricasapatos.Produto.TelaInsereProdutos
+import br.com.breninho.fabricasapatos.Pedido.TelaMostrarPedidos
 import br.com.breninho.fabricasapatos.Produto.TelaMostrarProdutos
 
 class TelaPedidos : ComponentActivity() {
@@ -56,7 +57,7 @@ fun Produtos() {
         }
         Button(
             onClick = {
-                contexto.startActivity(Intent(contexto, TelaMostrarProdutos::class.java))
+                contexto.startActivity(Intent(contexto, TelaMostrarPedidos::class.java))
             },
             modifier = Modifier.width(300.dp),
         ) {
